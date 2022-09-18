@@ -4,13 +4,41 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-    li{
-        @apply p-4
-    }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto+Condensed:wght@300;400;700&display=swap');
 
-    button{
-        @apply text-white border bg-indigo-600 border-indigo-600 hover:bg-transparent hover:text-indigo-600 
-        rounded-md
-    }
+:root {
+  --primary-dark: #5651e5;
+  --primary-light: #709dff;
+}
+
+.icon {
+  color: var(--primary-dark);
+}
+
+@layer base {
+  body {
+    @apply font-OpenSans
+  }
+
+  li {
+    @apply p-4 
+  }
+
+  h1 {
+    @apply text-3xl md:text-4xl font-bold
+  }
+
+  h2 {
+    @apply text-3xl font-bold
+  }
+
+  h3 {
+    @apply text-xl font-bold
+  }
+  button {
+    @apply p-3 border bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-light)] text-white rounded-xl
+  }
+  .icon {
+    @apply text-2xl cursor-pointer
+  }
 }

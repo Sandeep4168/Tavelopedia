@@ -1,30 +1,66 @@
-import React, { useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
+import React,{useState} from "react";
+import { BsPerson, BsSearch } from "react-icons/bs";
+import { BiSearch } from "react-icons/bi";
+import { AiOutlineClose } from "react-icons/ai";
+import { HiOutlineMenuAlt4 } from "react-icons/hi";
+import {FaFacebook,FaTwitter,FaYoutube,FaPinterest,FaInstagram} from "react-icons/fa"
 
 const Navbar = () => {
-  const [nav, setNav] = useState(false);
-  const handleClick = () => setNav(!nav);
-
-  const handleClose = () => setNav(!nav)
+    const [logo,setLogo] = useState(false)
+    const [nav,setNav] = useState(false)
+    const handleNav = () => {
+        setNav(!nav)
+        setLogo(!logo)
+    }
   return (
-    <div  className="w-screen h-[80px] fixed z-10 opacity-100 ">
-      <div className="px-2 flex justify-between items-center w-full h-full ">
-        <div className="flex items-center">
-          <h1 className="text-3xl font-bold text-white font-OpenSans m-4 px-8 sm:text-3xl"> Travelopedia.</h1>
-        
-        </div>
-        <div className="hidden md:flex pr-4">
-          <button className="border-none  bg-transparent hover:scale-110  text-white mr-4 font-OpenSans">
-            
-            Sign In
-          </button>
-          <button className="px-8 rounded-full bg-white text-black hover:text-white   py-3 font-OpenSans border-none"> Sign up</button>
-        </div>
-        <div className="md:hidden mr-4" onClick={handleClick}>
-          {!nav ? <Bars3Icon className="w-5" /> : <XMarkIcon className="w-5" />}
-        </div>
+    <div className="flex justify-between items-center h-20 w-full absolute z-10 text-white">
+      <div className="mx-4">
+        <h1 className={logo? "hidden":'block'}> Travelopedia.</h1>
       </div>
+
+      <ul className="hidden md:flex">
+        <li> Home </li>
+        <li> Destinations </li>
+        <li> Travel </li>
+        <li> View </li>
+        <li> Book </li>
+      </ul>
+      <div className="hidden md:flex">
+        <BiSearch className="mr-2" size={20}/>
+        <BsPerson className="mr-2" size={25}/>
+      </div>
+
+      <div onClick={handleNav} className="md:hidden z-10">
+        {nav ? <AiOutlineClose className="text-black"/> : <HiOutlineMenuAlt4 size={20}/>}
+        
+      </div>
+       
+       {/* Mobile menu dropdown */}
+      <div onClick={handleNav} className={nav ? "absolute text-black left-0 top-0 w-full bg-gray-100/90 px-4 py-7" : "absolute left-[-100%]" }>
+      <ul >
+        <h1 className="mx-4"> Travelopedia.</h1>
+        <li className="border-b"> Home </li>
+        <li className="border-b"> Destinations </li>
+        <li className="border-b"> Travel </li>
+        <li className="border-b"> View </li>
+        <li className="border-b"> Book </li>
+
+        <div className="flex flex-col">
+            <button className="my-6"> Search </button>
+            <button> Account </button>
+        </div>
+        <div className="flex justify-between my-6 "> 
+            <FaFacebook className="icon" />
+            <FaTwitter className="icon" />
+            <FaYoutube className="icon" />
+            <FaPinterest className="icon" />
+            <FaInstagram className="icon" />
+        </div>
+
+      </ul>
+
+      </div>
+
     </div>
   );
 };
