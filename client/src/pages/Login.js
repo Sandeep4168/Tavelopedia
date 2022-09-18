@@ -112,7 +112,8 @@ const Login = () => {
                 <p className='text-white text-md font-bold'>{formErrors.password}</p>
             </div>
             <button onClick={handleSubmit} className="w-[300px] sm:w-[400px] font-[Poppins]  border bg-transparent hover:bg-white hover:scale-105 duration-300 rounded-md p-2 my-2">Login</button>
-            <Link to="/register" className="text-center"> <p className="text-white text-xl  "> Don't have an account? Sign up</p></Link>
+            <br />
+            <Link to="/register" className="text-center">  Don't have an account? Sign up</Link>
         </form>
         </MDBValidation>
 
