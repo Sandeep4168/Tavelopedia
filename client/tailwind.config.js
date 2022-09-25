@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         OpenSans: ['Open Sans', "sans-serif"],
+        Passions: ['Passions Conflict', 'cursive'],
        },
        colors :{
         'lilly': '#6F38C5',
