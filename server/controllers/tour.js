@@ -54,7 +54,6 @@ export const getToursByUser = async (req,res) =>{
 
     
 }
-<<<<<<< HEAD
 
 export const deleteTour = async (req,res) =>{
     const {id} = req.params;
@@ -101,5 +100,3 @@ export const updateTour = async (req,res) =>{
 
    
 }
-=======
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e

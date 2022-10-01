@@ -17,10 +17,7 @@ import { getToursByUser } from "../redux/features/tourSlice";
 // import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import DashboardCard from "../components/DashboardCard"
-<<<<<<< HEAD
 import Spinner from "../components/Spinner"
-=======
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
 
 
 const Dashboard = () => {
@@ -36,13 +33,10 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
-<<<<<<< HEAD
   if(loading){
     return <Spinner/>
   }
 
-=======
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
   const excerpt = (str) => {
     if (str.length > 40) {
       str = str.substring(0, 40) + " ...";

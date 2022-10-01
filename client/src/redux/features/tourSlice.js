@@ -51,7 +51,6 @@ export const getToursByUser = createAsyncThunk("tour/getToursByUser",async (user
     }
 })
 
-<<<<<<< HEAD
 export const deleteTour = createAsyncThunk("tour/deleteTour",async ({id,toast},{rejectWithValue}) => {
     try{
 
@@ -79,8 +78,6 @@ export const updateTour = createAsyncThunk(
     }
   );
 
-=======
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
 
 
 const tourSlice = createSlice({
@@ -104,15 +101,7 @@ const tourSlice = createSlice({
       },
     extraReducers :{
         [createTour.pending] : (state,action) => {
-<<<<<<< HEAD
             state.loading = true
-=======
-            state.loading = false
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
-        },
-        [createTour.fulfilled] : (state,action) => {
-            state.loading = false
-            state.tours = [action.payload]
         },
         [createTour.rejected] : (state,action) => {
             state.loading = false
@@ -120,11 +109,7 @@ const tourSlice = createSlice({
             
         },
         [getTours.pending] : (state,action) => {
-<<<<<<< HEAD
             state.loading = true
-=======
-            state.loading = false
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
         },
         [getTours.fulfilled] : (state,action) => {
             state.loading = false
@@ -136,11 +121,7 @@ const tourSlice = createSlice({
             
         },
         [getTour.pending] : (state,action) => {
-<<<<<<< HEAD
             state.loading = true
-=======
-            state.loading = false
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
         },
         [getTour.fulfilled] : (state,action) => {
             state.loading = false
@@ -152,11 +133,7 @@ const tourSlice = createSlice({
             
         },        
         [getToursByUser.pending] : (state,action) => {
-<<<<<<< HEAD
             state.loading = true
-=======
-            state.loading = false
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
         },
         [getToursByUser.fulfilled] : (state,action) => {
             state.loading = false
@@ -166,7 +143,6 @@ const tourSlice = createSlice({
             state.loading = false
             state.error = action.payload.message
             
-<<<<<<< HEAD
         },
         [deleteTour.pending] : (state,action) => {
             state.loading = true
@@ -205,9 +181,6 @@ const tourSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
         },
-=======
-        }
->>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
         
     }
 })
