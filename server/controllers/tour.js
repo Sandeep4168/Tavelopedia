@@ -26,7 +26,7 @@ export const getTours = async (req,res) =>{
         const tours = await TourModel.find()
         res.status(200).json(tours)
     }catch(error){
-        res.status(404).json({message:"Something went wrong while creating a new tour"})
+        res.status(404).json({message:"Something went wrong while getting all tours"})
     }
 }
 
@@ -36,7 +36,7 @@ export const getTour = async (req,res) =>{
         const tour = await TourModel.findById(id)
         res.status(200).json(tour)
     }catch(error){
-        res.status(404).json({message:"Something went wrong while creating a new tour"})
+        res.status(404).json({message:"Something went wrong while getting a single tour"})
     }
 }
 
@@ -100,3 +100,16 @@ export const updateTour = async (req,res) =>{
 
    
 }
+
+export const getToursBySearch = async (req, res) => {
+    const { searchQuery } = req.query;
+    try {
+      const title = new RegExp(searchQuery, "i");
+      const searchTours = await TourModel.find({ title });
+      res.json(searchTours);
+    } catch (error) {
+      res.status(404).json({ message: "Something went wrong while searching the tours" });
+    }
+  };
+
+

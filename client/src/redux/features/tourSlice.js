@@ -77,6 +77,17 @@ export const updateTour = createAsyncThunk(
       }
     }
   );
+  export const searchTours = createAsyncThunk(
+    "tour/searchTours",
+    async (searchQuery, { rejectWithValue }) => {
+      try {
+        const response = await api.getToursBySearch(searchQuery);
+        return response.data;
+      } catch (err) {
+        return rejectWithValue(err.response.data);
+      }
+    }
+  );
 
 
 
@@ -180,6 +191,18 @@ const tourSlice = createSlice({
         [updateTour.rejected]: (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
+        },
+        [searchTours.pending] : (state,action) => {
+            state.loading = true
+        },
+        [searchTours.fulfilled] : (state,action) => {
+            state.loading = false
+            state.tours = action.payload
+        },
+        [searchTours.rejected] : (state,action) => {
+            state.loading = false
+            state.error = action.payload.message
+            
         },
         
     }

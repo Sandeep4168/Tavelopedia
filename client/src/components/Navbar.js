@@ -15,11 +15,14 @@ import { Link } from "react-router-dom";
 import { setLogout } from "../redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getToursBySearch } from "../redux/api";
+import { searchTours } from "../redux/features/tourSlice";
 
 const Navbar = () => {
   const [logo, setLogo] = useState(false);
   const [nav, setNav] = useState(false);
   const { user } = useSelector((state) => ({ ...state.auth }));
+  const [search,setSearch] = useState()
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleNav = () => {
@@ -30,6 +33,21 @@ const Navbar = () => {
     dispatch(setLogout());
     navigate("/login");
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (search) {
+      dispatch(searchTours(search));
+      navigate(`/tours/search?searchQuery=${search}`);
+      setSearch("");
+    } else {
+      navigate("/");
+    }
+  };
+
+
+
+
   return (
     <div className="flex justify-between items-center h-20 w-full fixed z-10 text-white bg-gradient-to-b from-gray-800">
       <div className="mx-4">
@@ -54,13 +72,33 @@ const Navbar = () => {
       {user?.result?._id && (
         <>
           <div className="hidden md:flex mr-3">
-            <BiSearch className="mr-3 mt-2" size={25} />
+            <form action="" class="relative mx-auto w-max px-3" onSubmit={handleSubmit}  >
+              <input
+                type="search"
+                onChange={(e) => setSearch(e.target.value)}
+                value={search}
+                class="peer cursor-pointer relative z-10 h-8 w-8 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-white focus:pl-16 focus:pr-4"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute inset-y-0 my-auto h-8 w-12 border-transparent stroke-white-500 px-3.5 peer-focus:border-white  peer-focus:stroke-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </form>
 
             <div>
               <button
                 onClick={() => handleLogout()}
                 className="transform hover:scale-110 duration-300  px-5 py-1 "
-                
               >
                 {" "}
                 Log out
@@ -85,7 +123,7 @@ const Navbar = () => {
             onClick={handleNav}
             className={
               nav
-                ? "absolute text-black left-0 top-0 w-full bg-gray-100/90 px-4 py-7"
+                ? "absolute text-black z-30 left-0 top-0 w-full bg-gray-100/90 px-4 py-7"
                 : "absolute left-[-100%]"
             }
           >
