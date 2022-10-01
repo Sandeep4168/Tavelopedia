@@ -3,6 +3,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBTypography } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import { getTours, setCurrentPage } from "../redux/features/tourSlice";
 import CardTour from "../components/CardTour";
+import Spinner from "../components/Spinner";
 import Carousel from "../components/Carousel";
 
 import { useLocation } from "react-router-dom";
@@ -19,6 +20,10 @@ const Home = () => {
     dispatch(getTours());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (loading){
+    return <Spinner/>
+  }
 
   return (
     <div className="flex flex-col justify-center text-center">

@@ -13,6 +13,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import bgImg from "../images/bgImg.jpg";
 import { createTour, updateTour } from "../redux/features/tourSlice";
+import Spinner from "../components/Spinner"
 
 const initialState = {
   title: "",
@@ -26,7 +27,7 @@ const AddEditTour = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
-  const { error, userTours } = useSelector((state) => ({
+  const { error, userTours,loading } = useSelector((state) => ({
     ...state.tour,
   }));
   const { user } = useSelector((state) => ({ ...state.auth }));
@@ -45,9 +46,17 @@ const AddEditTour = () => {
       setTagErrMsg("Please provide some tags");
     }
     if (title && description && tags) {
+
       const updatedTourData = { ...tourData, name: user?.result?.name };
-      dispatch(createTour({ updatedTourData, navigate, toast }));
-      // handleClear();
+
+      if(!id){
+        
+        dispatch(createTour({ updatedTourData, navigate, toast }));
+      }else{
+        dispatch(updateTour({ id,updatedTourData, navigate, toast }));
+      }
+      
+      handleClear();
     }
   };
 
@@ -74,9 +83,28 @@ const AddEditTour = () => {
     }
   }, [formErrors]);
 
+  useEffect(() =>{
+    
+    if(id){
+      const singleTour = userTours.find((tour) => tour._id === id)
+      console.log(singleTour)
+      setTourData({...singleTour})
+    }
+    
+
+  },[id])
+
+ 
+
   useEffect(() => {
     error && toast.error(error);
   }, [error]);
+
+  if (loading){
+    return <Spinner/>
+  }
+
+
 
   const handleClear = () => {
     setTourData({ title: "", description: "", tags: [] });
@@ -101,7 +129,7 @@ const AddEditTour = () => {
 
       <div className="absolute w-full h-full top-0 left-0 bg-gray-700/90"></div>
       <div className="absolute top-0 w-full h-full flex flex-col justify-center text-center text-white p-4">
-        <h1 className="text-4xl font-bold"> Add a Tour</h1>
+        <h1 className="text-4xl font-bold"> {id ? "Update Tour" : "Add a Tour"}</h1>
         <div className="w-full flex  items-center">
           <MDBValidation
             onSubmit={handleSubmit}
@@ -148,9 +176,9 @@ const AddEditTour = () => {
                   {formErrors.description}
                 </p>
               </div>
-              <div className="my-2 rounded-md bg-white">
+              <div className="my-2 rounded-md bg-white w-[300px] sm:w-[400px]">
                 <ChipInput
-                  className="bg-transparency py-2"
+                  className="bg-transparency py-2 "
                   name="tags"
                   variant="outlined"
                   placeholder="Enter Tag"
@@ -175,11 +203,11 @@ const AddEditTour = () => {
                 onClick={handleSubmit}
                 className="w-[300px] sm:w-[400px] font-[Poppins]  border bg-transparent hover:bg-white hover:scale-105 duration-300 rounded-md p-2 my-2"
               >
-                Submit
+                {id ? "Update" : "Submit"}
               </button>
               <br />
               <button
-                onClick={handleSubmit}
+                onClick={handleClear}
                 className="w-[300px] sm:w-[400px] font-[Poppins]  border bg-transparent hover:bg-white hover:scale-105 duration-300 rounded-md p-2 my-2"
               >
                 Clear

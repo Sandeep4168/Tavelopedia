@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegTrashAlt, FaPencilAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTour } from "../redux/features/tourSlice";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 const CardTour = ({
   imageFile,
   description,
@@ -12,7 +16,11 @@ const CardTour = ({
   likes,
 }) => {
   const [text, setText] = useState(false);
+  const { tours, loading } = useSelector((state) => ({
+    ...state.tour,
+  }));
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleText = () => {
     setText(true);
@@ -21,9 +29,22 @@ const CardTour = ({
     setText(false);
   };
 
-  const handleDelete = () => {
-    navigate("/");
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this tour ?")) {
+      dispatch(deleteTour({ id, toast }));
+    }
   };
+
+  const excerpt = (str) => {
+    if (str.length >100) {
+      str = str.substring(0, 100) + " ...";
+    }
+    return str;
+  };
+
+  if (loading){
+    return <Spinner/>
+  }
 
   return (
     <div>
@@ -54,7 +75,7 @@ const CardTour = ({
                 }
               >
                 {" "}
-                {description}
+                {excerpt(description)}
               </p>
               <p className="left-4 bottom-4 text-2xl font-bold text-white absolute">
                 {title}
@@ -67,30 +88,30 @@ const CardTour = ({
           onMouseLeave={handleRemoveText}
           className=" flex justify-end  mt-[-44px]  bg-transparent z-10"
         >
-            <div className=" flex z-20 px-2">
-                <div className={text ? "hover:scale-105 text-indigo-800 flex px-2 cursor-pointer " : "hover:scale-105 text-white flex px-2 cursor-pointer"}>
-                <FaPencilAlt
-           onClick={handleDelete}
-          
-          size={25}
-        />
-                </div>
-                <div className={
-              text
-                ? "hover:scale-105 text-red-800 flex cursor-pointer"
-                : "hover:scale-105 text-white flex cursor-pointer"
-            }>
-                <FaRegTrashAlt
-            onClick={handleDelete}
-            
-            size={25}
-          />
-
-                </div>
-            
-          
-          
-        </div>
+          <div className=" flex z-20 px-2">
+            <Link to={`/editTour/${_id}`}>
+            <div
+              className={
+                text
+                  ? "hover:scale-105 text-indigo-800 flex px-3 cursor-pointer "
+                  : "hover:scale-105 text-white flex px-3 cursor-pointer"
+              }
+            >
+              <FaPencilAlt  size={25} />
+            </div>
+            </Link>
+            <Link>
+            <div
+              className={
+                text
+                  ? "hover:scale-105 text-red-800 flex cursor-pointer"
+                  : "hover:scale-105 text-white flex cursor-pointer"
+              }
+            >
+              <FaRegTrashAlt onClick={() => handleDelete(_id)} size={25} />
+            </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

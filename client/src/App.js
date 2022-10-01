@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -12,6 +13,7 @@ import {setUser} from "./redux/features/authSlice"
 import AddEditTour from "./pages/AddEditTour";
 import SingleTour from "./pages/SingleTour";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./components/NotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,10 +35,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/addtour" element={<AddEditTour />} />
-          <Route path="/edittour/:id" element={<AddEditTour />} />
+          <Route path="/addtour" element={<PrivateRoute><AddEditTour /></PrivateRoute>} />
+          <Route path="/edittour/:id" element={<PrivateRoute><AddEditTour /></PrivateRoute>} />
           <Route path="/tour/:id" element={<SingleTour/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="*" element ={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </div>

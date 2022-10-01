@@ -17,6 +17,7 @@ import { getToursByUser } from "../redux/features/tourSlice";
 // import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import DashboardCard from "../components/DashboardCard"
+import Spinner from "../components/Spinner"
 
 
 const Dashboard = () => {
@@ -31,6 +32,10 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
+
+  if(loading){
+    return <Spinner/>
+  }
 
   const excerpt = (str) => {
     if (str.length > 40) {
