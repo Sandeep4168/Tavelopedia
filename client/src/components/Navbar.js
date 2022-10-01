@@ -16,12 +16,14 @@ import { setLogout } from "../redux/features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getToursBySearch } from "../redux/api";
-import { searchTours } from "../redux/features/tourSlice";
+import { getTours, searchTours } from "../redux/features/tourSlice";
+import decode from "jwt-decode"
 
 const Navbar = () => {
   const [logo, setLogo] = useState(false);
   const [nav, setNav] = useState(false);
   const { user } = useSelector((state) => ({ ...state.auth }));
+  const token =  user?.token
   const [search,setSearch] = useState()
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +31,14 @@ const Navbar = () => {
     setNav(!nav);
     setLogo(!logo);
   };
+
+  if(token){
+    const decodedToken = decode(token)
+    if(decodedToken.exp *1000 < new Date().getTime()){
+      dispatch(setLogout());
+    }
+  }
+
   const handleLogout = () => {
     dispatch(setLogout());
     navigate("/login");
@@ -41,6 +51,7 @@ const Navbar = () => {
       navigate(`/tours/search?searchQuery=${search}`);
       setSearch("");
     } else {
+      dispatch(getTours());
       navigate("/");
     }
   };

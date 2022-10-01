@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BsArrowLeftSquareFill, BsArrowRightSquareFill } from 'react-icons/bs';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import img1 from "../images/bg1.jpg"
 import img2 from "../images/bg2.jpg"
 import img3 from "../images/bg3.jpg"
@@ -60,7 +61,7 @@ const Carousel = () => {
       {sliderData.map((item, index) => (
         <div className={index === slide ? 'opacity-100 w-full ' : 'opacity-0 '}>
           {index === slide && (
-            <img className='w-full h-full object-cover' src={item.url} alt='/' />
+            <LazyLoadImage className='w-full h-full object-cover' src={item.url} alt='/' />
           )}
         </div>
       ))}
