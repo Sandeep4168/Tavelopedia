@@ -13,7 +13,10 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import bgImg from "../images/bgImg.jpg";
 import { createTour, updateTour } from "../redux/features/tourSlice";
+<<<<<<< HEAD
 import Spinner from "../components/Spinner"
+=======
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
 
 const initialState = {
   title: "",
@@ -27,7 +30,11 @@ const AddEditTour = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
+<<<<<<< HEAD
   const { error, userTours,loading } = useSelector((state) => ({
+=======
+  const { error, userTours } = useSelector((state) => ({
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
     ...state.tour,
   }));
   const { user } = useSelector((state) => ({ ...state.auth }));
@@ -46,6 +53,7 @@ const AddEditTour = () => {
       setTagErrMsg("Please provide some tags");
     }
     if (title && description && tags) {
+<<<<<<< HEAD
 
       const updatedTourData = { ...tourData, name: user?.result?.name };
 
@@ -57,6 +65,11 @@ const AddEditTour = () => {
       }
       
       handleClear();
+=======
+      const updatedTourData = { ...tourData, name: user?.result?.name };
+      dispatch(createTour({ updatedTourData, navigate, toast }));
+      // handleClear();
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
     }
   };
 
@@ -83,6 +96,7 @@ const AddEditTour = () => {
     }
   }, [formErrors]);
 
+<<<<<<< HEAD
   useEffect(() =>{
     
     if(id){
@@ -96,16 +110,21 @@ const AddEditTour = () => {
 
  
 
+=======
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
   useEffect(() => {
     error && toast.error(error);
   }, [error]);
 
+<<<<<<< HEAD
   if (loading){
     return <Spinner/>
   }
 
 
 
+=======
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
   const handleClear = () => {
     setTourData({ title: "", description: "", tags: [] });
   };
@@ -129,7 +148,11 @@ const AddEditTour = () => {
 
       <div className="absolute w-full h-full top-0 left-0 bg-gray-700/90"></div>
       <div className="absolute top-0 w-full h-full flex flex-col justify-center text-center text-white p-4">
+<<<<<<< HEAD
         <h1 className="text-4xl font-bold"> {id ? "Update Tour" : "Add a Tour"}</h1>
+=======
+        <h1 className="text-4xl font-bold"> Add a Tour</h1>
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
         <div className="w-full flex  items-center">
           <MDBValidation
             onSubmit={handleSubmit}
@@ -176,9 +199,15 @@ const AddEditTour = () => {
                   {formErrors.description}
                 </p>
               </div>
+<<<<<<< HEAD
               <div className="my-2 rounded-md bg-white w-[300px] sm:w-[400px]">
                 <ChipInput
                   className="bg-transparency py-2 "
+=======
+              <div className="my-2 rounded-md bg-white">
+                <ChipInput
+                  className="bg-transparency py-2"
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
                   name="tags"
                   variant="outlined"
                   placeholder="Enter Tag"
@@ -203,11 +232,19 @@ const AddEditTour = () => {
                 onClick={handleSubmit}
                 className="w-[300px] sm:w-[400px] font-[Poppins]  border bg-transparent hover:bg-white hover:scale-105 duration-300 rounded-md p-2 my-2"
               >
+<<<<<<< HEAD
                 {id ? "Update" : "Submit"}
               </button>
               <br />
               <button
                 onClick={handleClear}
+=======
+                Submit
+              </button>
+              <br />
+              <button
+                onClick={handleSubmit}
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
                 className="w-[300px] sm:w-[400px] font-[Poppins]  border bg-transparent hover:bg-white hover:scale-105 duration-300 rounded-md p-2 my-2"
               >
                 Clear

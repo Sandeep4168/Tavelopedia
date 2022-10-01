@@ -3,7 +3,10 @@ import { MDBCol, MDBContainer, MDBRow, MDBTypography } from "mdb-react-ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import { getTours, setCurrentPage } from "../redux/features/tourSlice";
 import CardTour from "../components/CardTour";
+<<<<<<< HEAD
 import Spinner from "../components/Spinner";
+=======
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
 import Carousel from "../components/Carousel";
 
 import { useLocation } from "react-router-dom";
@@ -21,10 +24,13 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+<<<<<<< HEAD
   if (loading){
     return <Spinner/>
   }
 
+=======
+>>>>>>> 4d304d5f835f5fc723bff289fcfbcca42a78d65e
   return (
     <div className="flex flex-col justify-center text-center">
       <div className="h-[400px] w-full">
